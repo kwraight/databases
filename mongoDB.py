@@ -1,6 +1,5 @@
 
 import myDetails
-
 myDeets= myDetails.SetMondoDB()
 
 from pymongo import MongoClient
