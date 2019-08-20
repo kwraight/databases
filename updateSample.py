@@ -1,10 +1,13 @@
 
+import myDetails
+myDeets= myDetails.SetMondoDB()
+
 from pymongo import MongoClient
 #include pprint for readabillity of the
 from pprint import pprint
 
 #change the MongoClient connection string to your MongoDB database instance
-client = MongoClient(port=27020)
+client = MongoClient("mongodb+srv://"+myDeets.username+":"+myDeets.password+"@cluster0-yrb5p.mongodb.net/test?retryWrites=true&w=majority")
 db=client.business
 
 ASingleReview = db.reviews.find_one({})
