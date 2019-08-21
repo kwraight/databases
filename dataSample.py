@@ -149,7 +149,6 @@ def main():
     #Step 3: a)find files and b)translate stats
 
     ### a)
-    path = "/Users/kwraight/CERN_repositories/streamsim/output/"
     myFiles= GetFiles(argDict['path'], argDict['ext'])
 
     ### b)
