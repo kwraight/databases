@@ -6,6 +6,8 @@ Templates for databases:
 * [MongoDB](#mongodb)
   * at the moment based on-line only DB
 
+Use *Credentials* class in *myDetails.py* to set username and password. 
+
 ---
 
 # [MongoDB](https://cloud.mongodb.com)
