@@ -42,7 +42,7 @@ Five main steps:
 `python dataSample.py --database datarates --collection chipsX0pc --mode create --path /Users/kwraight/CERN_repositories/streamsim/testDir/`
 
 **Comment**
-Useful queries to filter on mongoDB
+Useful queries for filtering *streamsim* samples on mongoDB
 * Central region:
 `{ $and: [ {'subReg': {'$regex': 'cent'}}, {'layerPos': {'$regex': 'rd53b'}}, {'layerPos': {'$regex': '_es1.'}},  {'layerPos': {'$regex': '50x50'}} ] }`
 * Inclined:
