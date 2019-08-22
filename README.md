@@ -6,8 +6,6 @@ Templates for databases:
 * [MongoDB](#mongodb)
   * at the moment based on-line only DB
 
-Use *Credentials* class in *myDetails.py* to set username and password. 
-
 ---
 
 # [MongoDB](https://cloud.mongodb.com)
@@ -26,6 +24,8 @@ Five main steps:
 4. Per file: insert dictionary directly into MongoDB via insert_one
 5. Tell us that you are done
 
+**NB** Use *Credentials* class in *myDetails.py* to set username and password.
+
 **Command**
 `dataSample.py`
 
@@ -42,3 +42,10 @@ Five main steps:
 `python dataSample.py --database datarates --collection chipsX0pc --mode create --path /Users/kwraight/CERN_repositories/streamsim/testDir/`
 
 **Comment**
+Useful queries to filter on mongoDB
+* Central region:
+`{ $and: [ {'subReg': {'$regex': 'cent'}}, {'layerPos': {'$regex': 'rd53b'}}, {'layerPos': {'$regex': '_es1.'}},  {'layerPos': {'$regex': '50x50'}} ] }`
+* Inclined:
+`{ $and: [ {'subReg': {'$regex': 'inc'}}, {'layerPos': {'$regex': 'rd53b'}}, {'layerPos': {'$regex': '_es1.'}},  {'layerPos': {'$regex': '50x50'}} ] }`
+* Endcap:
+`{ $and: [ {'subReg': {'$regex': 'end'}}, {'layerPos': {'$regex': 'rd53b'}}, {'layerPos': {'$regex': '_es1.'}},  {'layerPos': {'$regex': '50x50'}} ] }`
