@@ -15,19 +15,22 @@ https://www.sitepoint.com/getting-started-with-python-and-mongodb/
 * Querying information:
 https://docs.mongodb.com/manual/reference/operator/query/
 
-## Upload csv file
-Compare defined stream statistic across global positions
+**Basic Stretegy**
 Five main steps:
 1. Connect to MongoDB
 2. Check if a)database and b)collection exist
 3.  a)find files in path and b)Per file: translate stats to python dictionary
 4. Per file: insert dictionary directly into MongoDB via insert_one
 5. Tell us that you are done
+* Steps 1-3 code now in *CommonCode.py* file
 
 **NB** Use *Credentials* class in *myDetails.py* to set username and password.
 
+## Upload (homemade) csv file
+For uploading (homemade) csv files, using bespoke file reader.
+
 **Command**
-`dataSample.py`
+`sendStats.py`
 
 | Args | Comment (default) | e.g. |
 | --- | --- | --- |
@@ -39,7 +42,7 @@ Five main steps:
 | max | max number of entries to add to collection (not set(-1)) | |
 
 *E.g.*
-`python dataSample.py --database datarates --collection chipsX0pc --mode create --path /Users/kwraight/CERN_repositories/streamsim/testDir/`
+`python sendStats.py --database datarates --collection chipsX0pc --mode create --path /Users/kwraight/CERN_repositories/streamsim/testDir/`
 
 **Comment**
 Useful queries for filtering *streamsim* samples on mongoDB
