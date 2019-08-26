@@ -47,28 +47,6 @@ def GetDBArgs(ad=None):
 # Useful Functions
 ##################################
 
-def GetStats(fileName):
-
-    argDict={}
-    names=[]
-    vals=[]
-    file = open(fileName, 'r')
-    for line in file:
-        if "pos" in line: names=line.split("\t")
-        else: vals=line.split("\t")
-
-    for n,v in zip(names,vals):
-        if n=="\n": continue
-        try:
-            argDict[n]=int(v)
-        except:
-            try:
-                argDict[n]=float(v)
-            except:
-                argDict[n]=v
-
-    return argDict
-
 def GetFiles(path,ext):
 
     files = []
