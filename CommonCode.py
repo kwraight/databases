@@ -59,8 +59,93 @@ def GetFiles(path,ext):
 
     return files
 
-def SetCollection(argDict):
-    print "argDict:",argDict
+
+def CheckDatabase(dnName, mdbClient):
+
+    retStatus=False
+
+    db_names=[]
+    if len(mdbClient.database_names()) == 0:
+        #print('bugger all databases in client')
+        retStatus=False
+    else:
+        db_names=[ dn.encode('ascii') for dn in mdbClient.database_names()]
+        #print(db_names)
+
+    if dnName in db_names:
+        #print('found database: {0}'.format(argDict['database']))
+        retStatus=True
+
+    return retStatus
+
+
+def CheckCollection(colName, database):
+
+    retStatus=False
+
+    col_names=database.collection_names()
+    if len(col_names) == 0:
+        print('bugger all collections in database')
+        retStatus=False
+
+    if argDict['collection'] in col_names:
+        retStatus=True
+
+    return retStatus
+
+
+def SetClient(myDeets):
+
+    client = MongoClient("mongodb+srv://"+myDeets.username+":"+myDeets.password+"@cluster0-yrb5p.mongodb.net/test?retryWrites=true&w=majority")
+
+    return client
+
+
+def SetCollection(myDeets, dnName, colName, mode="NYS"):
+
+    if "NYS" in mode:
+        print('\n!!! Unspecified mode. Please define: create/update/replace/delete')
+        return
+
+    #Step 1: Connect to MongoDB - Note: Change connection string as needed
+    mdbClient = SetClient(myDeets)
+
+    #Step 2: Check if a)database and b)collection exist
+    ### a)
+    if CheckDatabase(dnName, mdbClient):
+        print('found database: {0}'.format(dnName))
+    else:
+        print('No such database found: {0}'.format(dnName))
+
+        if "create" in mode:
+            print('will create database: {0}'.format(dnName))
+        else: return
+
+    db = client[dnName]
+
+    ### b)
+    if not CheckCollection(colName, db):
+        print('No such collection found: {0}'.format(colName))
+        if "create" in mode:
+            print('will create collection: {0}'.format(colName))
+        else: return
+    else:
+        print('found collection: {0}'.format(colName))
+
+    if "replace" in mode or "delete" in mode:
+        db[colName].drop()
+
+        if "delete" in mode: return
+
+    if "update" in mode:
+        print('will update collecion: {0}'.format(colName))
+
+    collection = db[colName]
+
+    return collection
+
+def SetCollectionOld(argDict):
+    print("argDict: ",str(argDict))
 
     if "NYS" in argDict['mode']:
         print('\n!!! Unspecified mode. Please define: create/update/replace/delete')
@@ -81,7 +166,7 @@ def SetCollection(argDict):
         print(db_names)
 
     if argDict['database'] in db_names:
-        print('found database: {0} '.format(argDict['database']))
+        print('found database: {0}'.format(argDict['database']))
     else:
         print('No such database found: {0}'.format(argDict['database']))
 
@@ -100,7 +185,7 @@ def SetCollection(argDict):
         else: return
 
     if argDict['collection'] in col_names:
-        print('found collection: {0} '.format(argDict['collection']))
+        print('found collection: {0}'.format(argDict['collection']))
     else:
         print('No such collection found: {0}'.format(argDict['collection']))
 
