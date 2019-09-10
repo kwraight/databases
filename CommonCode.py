@@ -88,27 +88,27 @@ def CheckCollection(colName, database):
         print('bugger all collections in database')
         retStatus=False
 
-    if argDict['collection'] in col_names:
+    if colName in col_names:
         retStatus=True
 
     return retStatus
 
 
-def SetClient(myDeets):
+def SetClient():
 
     client = MongoClient("mongodb+srv://"+myDeets.username+":"+myDeets.password+"@cluster0-yrb5p.mongodb.net/test?retryWrites=true&w=majority")
 
     return client
 
 
-def SetCollection(myDeets, dnName, colName, mode="NYS"):
+def SetCollection(dnName, colName, mode="NYS"):
 
     if "NYS" in mode:
         print('\n!!! Unspecified mode. Please define: create/update/replace/delete')
         return
 
     #Step 1: Connect to MongoDB - Note: Change connection string as needed
-    mdbClient = SetClient(myDeets)
+    mdbClient = SetClient()
 
     #Step 2: Check if a)database and b)collection exist
     ### a)
@@ -117,34 +117,34 @@ def SetCollection(myDeets, dnName, colName, mode="NYS"):
     else:
         print('No such database found: {0}'.format(dnName))
 
-        if "create" in mode:
+        if "create" in mode.lower():
             print('will create database: {0}'.format(dnName))
         else: return
 
-    db = client[dnName]
+    db = mdbClient[dnName]
 
     ### b)
     if not CheckCollection(colName, db):
         print('No such collection found: {0}'.format(colName))
-        if "create" in mode:
+        if "create" in mode.lower():
             print('will create collection: {0}'.format(colName))
         else: return
     else:
         print('found collection: {0}'.format(colName))
 
-    if "replace" in mode or "delete" in mode:
+    if "replace" in mode.lower() or "delete" in mode.lower():
         db[colName].drop()
 
-        if "delete" in mode: return
+        if "delete" in mode.lower(): return
 
-    if "update" in mode:
+    if "update" in mode.lower():
         print('will update collecion: {0}'.format(colName))
 
     collection = db[colName]
 
     return collection
 
-def SetCollectionOld(argDict):
+def SetCollectionArg(argDict):
     print("argDict: ",str(argDict))
 
     if "NYS" in argDict['mode']:
