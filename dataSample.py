@@ -109,7 +109,7 @@ def main():
         print(db_names)
 
     if argDict['database'] in db_names:
-        print('found database: {0} '.format(argDict['database']))
+        print('found database: {0}'.format(argDict['database']))
     else:
         print('No such database found: {0}'.format(argDict['database']))
 
@@ -128,7 +128,7 @@ def main():
         else: return
 
     if argDict['collection'] in col_names:
-        print('found collection: {0} '.format(argDict['collection']))
+        print('found collection: {0}'.format(argDict['collection']))
     else:
         print('No such collection found: {0}'.format(argDict['collection']))
 
