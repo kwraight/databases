@@ -40,7 +40,7 @@ def main():
     argDict=cc.GetDBArgs()
     print "argDict:",argDict
 
-    collection=cc.SetCollection(argDict)
+    collection=cc.SetCollectionArg(argDict)
 
     #Step 3: a)find files and b)translate stats
 
