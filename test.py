@@ -1,8 +1,5 @@
+### test comminucation with database
 
-import myDetails
-myDeets= myDetails.SetMondoDB()
-
-from pymongo import MongoClient
 from random import randint
 import os
 import time
@@ -19,19 +16,19 @@ def main():
     testInfoB={'this':"what", 'here':2, 'there':[4,5,6]}
     testInfoC={'this':"taht", 'here':-3, 'there':[-9,-8,-7]}
 
-    collection=cc.SetCollection("Jeremy", "Beremy", mode="create")
+    collection=cc.SetCollection("Jeremy", "Bearimy", mode="create")
     result=collection.insert_one(testInfoA)
     raw_input("did create work?")
 
-    collection=cc.SetCollection("Jeremy", "Beremy", mode="update")
+    collection=cc.SetCollection("Jeremy", "Bearimy", mode="update")
     result=collection.insert_one(testInfoB)
     raw_input("did update work?")
 
-    collection=cc.SetCollection("Jeremy", "Beremy", mode="replace")
+    collection=cc.SetCollection("Jeremy", "Bearimy", mode="replace")
     result=collection.insert_one(testInfoC)
     raw_input("did replace work?")
 
-    collection=cc.SetCollection("Jeremy", "Beremy", mode="delete")
+    collection=cc.SetCollection("Jeremy", "Bearimy", mode="delete")
     raw_input("did delete work?")
 
     #Step 3: a)find files and b)translate stats
