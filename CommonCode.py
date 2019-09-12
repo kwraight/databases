@@ -23,7 +23,7 @@ def GetDBArgs(ad=None):
     parser.add_argument('--ext', help='extension of stat files (default ".txt")')
     parser.add_argument('--file', help='input stat json file (default "NYS")')
     parser.add_argument('--max', help='max number of entries to add to collection (default not set (-1))')
-    parser.add_argument('--name', help='name (default not set (-1))')
+    parser.add_argument('--name', help='name (default not set)')
 
     args = parser.parse_args()
 
