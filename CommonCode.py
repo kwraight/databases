@@ -21,7 +21,9 @@ def GetDBArgs(ad=None):
     parser.add_argument('--collection', help='collection name')
     parser.add_argument('--path', help='path to stat files (default "/Users/kwraight/CERN_repositories/streamsim/testDir/")')
     parser.add_argument('--ext', help='extension of stat files (default ".txt")')
+    parser.add_argument('--file', help='input stat json file (default "NYS")')
     parser.add_argument('--max', help='max number of entries to add to collection (default not set (-1))')
+    parser.add_argument('--name', help='name (default not set (-1))')
 
     args = parser.parse_args()
 
@@ -29,7 +31,7 @@ def GetDBArgs(ad=None):
 
     argDict={}
     if ad==None:
-        argDict={'mode':"NYS", 'database':"NYS", 'collection':"NYS", 'path':"/Users/kwraight/CERN_repositories/streamsim/testDir/", 'ext':".txt", 'max':-1}
+        argDict={'mode':"NYS", 'file':"NYS", 'name':"NYS", 'database':"NYS", 'collection':"NYS", 'path':"/Users/kwraight/CERN_repositories/streamsim/testDir/", 'ext':".txt", 'max':-1}
     else:
         argDict=ad
 
