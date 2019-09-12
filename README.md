@@ -15,7 +15,7 @@ https://www.sitepoint.com/getting-started-with-python-and-mongodb/
 * Querying information:
 https://docs.mongodb.com/manual/reference/operator/query/
 
-**Basic Stretegy**
+**Basic Strategy**
 Five main steps:
 1. Connect to MongoDB
 2. Check if a)database and b)collection exist
@@ -52,3 +52,21 @@ Useful queries for filtering *streamsim* samples on mongoDB
 `{ $and: [ {'subReg': {'$regex': 'inc'}}, {'layerPos': {'$regex': 'rd53b'}}, {'layerPos': {'$regex': '_es1.'}},  {'layerPos': {'$regex': '50x50'}} ] }`
 * Endcap:
 `{ $and: [ {'subReg': {'$regex': 'end'}}, {'layerPos': {'$regex': 'rd53b'}}, {'layerPos': {'$regex': '_es1.'}},  {'layerPos': {'$regex': '50x50'}} ] }`
+
+---
+
+**Command**
+`sendJSON.py`
+
+| Args | Comment (default) | e.g. |
+| --- | --- | --- |
+| mode | mode of running: create/update/replace/delete (not set) | |
+| database | database name (not set) | datarates |
+| collection | collection name (not set) | chips |
+| path | path to stat files ("/Users/kwraight/CERN_repositories/streamsim/testDir/") | |
+| ext | extension of stat files (".txt") | |
+| file | alternatively, use specified file ("NYS") | |
+| max | max number of entries to add to collection (not set(-1)) | |
+
+*E.g.*
+ python sendJSON.py --mode create --database Jeremy --collection Bearimy --file summaryFile.json --name duts
