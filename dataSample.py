@@ -49,7 +49,7 @@ def GetDBArgs(ad=None):
 
 def GetStats(fileName):
 
-    argDict={}
+    statDict={}
     names=[]
     vals=[]
     file = open(fileName, 'r')
@@ -67,7 +67,7 @@ def GetStats(fileName):
             except:
                 argDict[n]=v
 
-    return argDict
+    return statDict
 
 def GetFiles(path,ext):
 
