@@ -102,6 +102,30 @@ def SetClient():
 
     return client
 
+def GetCollection(dnName, colName):
+
+    #Step 1: Connect to MongoDB - Note: Change connection string as needed
+    mdbClient = SetClient()
+
+    #Step 2: Check if a)database and b)collection exist
+    ### a)
+    if CheckDatabase(dnName, mdbClient):
+        print('found database: {0}'.format(dnName))
+    else:
+        print('No such database found: {0}'.format(dnName))
+
+    db = mdbClient[dnName]
+
+    ### b)
+    if not CheckCollection(colName, db):
+        print('No such collection found: {0}'.format(colName))
+    else:
+        print('found collection: {0}'.format(colName))
+
+    collection = db[colName]
+
+    return collection
+
 
 def SetCollection(dnName, colName, mode="NYS"):
 
