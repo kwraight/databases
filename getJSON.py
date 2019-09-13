@@ -6,6 +6,16 @@ import time
 import argparse
 import json
 import CommonCode as cc
+import pprint
+
+def GetDict(dataDict, name='duts'):
+
+    statDict={}
+
+    for k, v in dataDict.items():
+        statDict[str(k)]=str(v)
+
+    return statDict
 
 ##################################
 # Main
@@ -18,12 +28,23 @@ def main():
 
     collection=cc.GetCollection(argDict['database'], argDict['collection'])
 
+
+    print('total record for the collection: ' + str(collection.count()))
     #Step 3: a)find files and b)translate stats
-    myPosts = collection.find({'author': 'Scott'})
+    myPosts = collection.find()
+
+    outFileName='outFile_'+argDict['database']+'_'+argDict['collection']+'.txt'
+    outFile=open(outFileName, 'w')
+    outFile.close()
+
 
     count=0
-    for p in myPosts:
-        print(p)
+    for p in collection.find():
+        print('\n\n')
+        outDict=GetDict(p)
+        print(outDict)
+        with open(outFileName, 'a') as outfile:
+            json.dump(outDict,outfile)
         count+=1
     print('finished reading {0} datarate entries'.format(count))
 
