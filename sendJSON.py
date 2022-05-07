@@ -34,7 +34,7 @@ def main():
     argDict=cc.GetDBArgs()
     print('argDict: '+str(argDict))
 
-    collection=cc.SetCollection(argDict['database'], argDict['collection'], argDict['mode'])
+    collection=cc.SetCollection(argDict['database'], argDict['collection'], argDict['user'], argDict['mode'])
 
     #Step 3: a)find files and b)translate stats
 

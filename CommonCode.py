@@ -1,12 +1,10 @@
 
-import myDetails
-myDeets= myDetails.SetMondoDB()
-
 from pymongo import MongoClient
 from random import randint
 import os
 import time
 import argparse
+import myDetails
 
 ######################
 ### parsing
@@ -24,6 +22,7 @@ def GetDBArgs(ad=None):
     parser.add_argument('--file', help='input stat json file (default "NYS")')
     parser.add_argument('--max', help='max number of entries to add to collection (default not set (-1))')
     parser.add_argument('--name', help='name (default not set)')
+    parser.add_argument('--user', help='id for database user (default KGW)')
 
     args = parser.parse_args()
 
@@ -31,7 +30,7 @@ def GetDBArgs(ad=None):
 
     argDict={}
     if ad==None:
-        argDict={'mode':"NYS", 'file':"NYS", 'name':"NYS", 'database':"NYS", 'collection':"NYS", 'path':"/Users/kwraight/CERN_repositories/streamsim/testDir/", 'ext':".txt", 'max':-1}
+        argDict={'user': "KGW", 'mode':"NYS", 'file':"NYS", 'name':"NYS", 'database':"NYS", 'collection':"NYS", 'path':"/Users/kwraight/CERN_repositories/streamsim/testDir/", 'ext':".txt", 'max':-1}
     else:
         argDict=ad
 
@@ -96,16 +95,22 @@ def CheckCollection(colName, database):
     return retStatus
 
 
-def SetClient():
+def SetClient(userFlag):
 
-    client = MongoClient("mongodb+srv://"+myDeets.username+":"+myDeets.password+"@cluster0-yrb5p.mongodb.net/test?retryWrites=true&w=majority")
+    myDeets= myDetails.SetMondoDBKGW()
+    if "itk" in userFlag.lower():
+        myDeets= myDetails.SetMondoDBUK()
+
+    print("Setting user to "+myDeets.username)
+
+    client = MongoClient("mongodb+srv://"+myDeets.username+":"+myDeets.password+"@cluster0-"+myDeets.code+".mongodb.net/test?retryWrites=true&w=majority")
 
     return client
 
-def GetCollection(dnName, colName):
+def GetCollection(dnName, colName, userFlag):
 
     #Step 1: Connect to MongoDB - Note: Change connection string as needed
-    mdbClient = SetClient()
+    mdbClient = SetClient(userFlag)
 
     #Step 2: Check if a)database and b)collection exist
     ### a)
@@ -127,14 +132,14 @@ def GetCollection(dnName, colName):
     return collection
 
 
-def SetCollection(dnName, colName, mode="NYS"):
+def SetCollection(dnName, colName, userFlag, mode="NYS"):
 
     if "NYS" in mode:
         print('\n!!! Unspecified mode. Please define: create/update/replace/delete')
         return
 
     #Step 1: Connect to MongoDB - Note: Change connection string as needed
-    mdbClient = SetClient()
+    mdbClient = SetClient(userFlag)
 
     #Step 2: Check if a)database and b)collection exist
     ### a)
@@ -170,7 +175,7 @@ def SetCollection(dnName, colName, mode="NYS"):
 
     return collection
 
-def SetCollectionArg(argDict):
+def SetCollectionArg(argDict, myDeets):
     print("argDict: ",str(argDict))
 
     if "NYS" in argDict['mode']:

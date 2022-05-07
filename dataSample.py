@@ -98,7 +98,7 @@ def main():
     client = MongoClient("mongodb+srv://"+myDeets.username+":"+myDeets.password+"@cluster0-yrb5p.mongodb.net/test?retryWrites=true&w=majority")
 
     #Step 2: Check if a)database and b)collection exist
-
+    
     ### a)
     db_names=[]
     if len(client.database_names()) == 0:
